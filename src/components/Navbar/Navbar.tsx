@@ -1,13 +1,18 @@
+import type { IMovie } from "../../types";
 import Logo from "./Logo";
 import NumResults from "./NumResults";
 import Search from "./Search";
 
-function Navbar() {
+interface IProps {
+  movies: IMovie[];
+}
+
+function Navbar({ movies }: IProps) {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   );
 }

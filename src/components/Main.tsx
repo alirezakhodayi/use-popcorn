@@ -1,13 +1,9 @@
-import { ListBox } from "./ListBox";
-import { WatchedBox } from "./WatchedBox";
+interface IProps {
+  children: React.ReactNode;
+}
 
-function Main() {
-  return (
-    <main className="main">
-      <ListBox />
-      <WatchedBox />
-    </main>
-  );
+function Main({ children }: IProps) {
+  return <main className="main">{children}</main>;
 }
 
 export { Main };
