@@ -1,8 +1,8 @@
-import { useState } from "react";
-
-export default function Search() {
-  const [query, setQuery] = useState<string>("");
-
+interface IProps {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+export default function Search({ query, setQuery }: IProps) {
   function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
   }

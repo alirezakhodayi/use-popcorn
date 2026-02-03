@@ -5,13 +5,15 @@ import Search from "./Search";
 
 interface IProps {
   movies: IMovie[];
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Navbar({ movies }: IProps) {
+function Navbar({ movies, query, setQuery }: IProps) {
   return (
     <nav className="nav-bar">
       <Logo />
-      <Search />
+      <Search query={query} setQuery={setQuery} />
       <NumResults movies={movies} />
     </nav>
   );

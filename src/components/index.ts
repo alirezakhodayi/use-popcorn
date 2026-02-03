@@ -5,6 +5,8 @@ import { Box } from "./Box";
 import { WatchedSummary } from "./WatchedSummary";
 import { WatchedMoviesList } from "./WatchedMoviesList";
 import { StarRating } from "./StarRating";
+import { Loader } from "./Loader";
+import { ErrorMessage } from "./ErrorMessage";
 export {
   Navbar,
   Box,
@@ -13,4 +15,6 @@ export {
   WatchedMoviesList,
   WatchedSummary,
   StarRating,
+  Loader,
+  ErrorMessage,
 };
