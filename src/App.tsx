@@ -14,29 +14,6 @@ import {
 
 import type { IMovie, IWatchedMovie } from "./types";
 
-// const tempWatchedData = [
-//   {
-//     imdbID: "tt1375666",
-//     Title: "Inception",
-//     Year: "2010",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-//     runtime: 148,
-//     imdbRating: 8.8,
-//     userRating: 10,
-//   },
-//   {
-//     imdbID: "tt0088763",
-//     Title: "Back to the Future",
-//     Year: "1985",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-//     runtime: 116,
-//     imdbRating: 8.5,
-//     userRating: 9,
-//   },
-// ];
-
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 function App() {
@@ -65,6 +42,7 @@ function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
       async function fetchMovies() {
         try {
           setIsLoading(true);
@@ -72,6 +50,7 @@ function App() {
 
           const response = await fetch(
             `https://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`,
+            { signal: controller.signal },
           );
 
           if (!response.ok)
@@ -82,8 +61,10 @@ function App() {
           if (data.Response === "False") throw new Error("Movie Not Found!");
 
           setMovies(data.Search);
+          setError("");
         } catch (err: unknown) {
-          if (err instanceof Error) setError(err.message);
+          if (err instanceof Error && err.name !== "AbortError")
+            setError(err.message);
         } finally {
           setIsLoading(false);
         }
@@ -95,7 +76,12 @@ function App() {
         return;
       }
 
+      handleCloseMovie();
       fetchMovies();
+
+      return function () {
+        controller.abort();
+      };
     },
     [query],
   );

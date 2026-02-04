@@ -77,6 +77,33 @@ function MovieDetails({
     [selectedId],
   );
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+
+      return function () {
+        document.title = "usePopcorn";
+      };
+    },
+    [title],
+  );
+
+  useEffect(
+    function () {
+      function callback(e: KeyboardEvent) {
+        if (e.code === "Escape") onCloseMovie();
+      }
+
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie],
+  );
+
   return (
     <>
       {isLoading ? (
@@ -110,7 +137,7 @@ function MovieDetails({
                     size={24}
                     onSetRating={setUserRating}
                   />
-                  {userRating && userRating > 0 && (
+                  {userRating > 0 && (
                     <button className="btn-add" onClick={handleAdd}>
                       + Add to list
                     </button>
