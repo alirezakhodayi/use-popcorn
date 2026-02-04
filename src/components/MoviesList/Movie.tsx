@@ -2,11 +2,12 @@ import type { IMovie } from "../../types/movie-interface";
 
 interface IProps {
   movie: IMovie;
+  onSelectMovie: (id: string) => void;
 }
 
-export default function Movie({ movie }: IProps) {
+export default function Movie({ movie, onSelectMovie }: IProps) {
   return (
-    <li>
+    <li onClick={() => onSelectMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>

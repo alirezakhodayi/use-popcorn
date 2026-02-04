@@ -1,14 +1,18 @@
-import type { IWatchedMovie } from "../types/watched-movie-interface";
-import { average } from "../utilities";
+import type { IWatchedMovie } from "../../types";
+import { average } from "../../utilities";
 
 interface IProps {
   watched: IWatchedMovie[];
 }
 
 function WatchedSummary({ watched }: IProps) {
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  const avgImdbRating = average(
+    watched.map((movie) => movie.imdbRating) as number[],
+  );
+  const avgUserRating = average(
+    watched.map((movie) => movie.userRating) as number[],
+  );
+  const avgRuntime = average(watched.map((movie) => movie.runtime) as number[]);
 
   return (
     <div className="summary">
@@ -20,11 +24,11 @@ function WatchedSummary({ watched }: IProps) {
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{avgImdbRating.toFixed(2)}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{avgUserRating.toFixed(2)}</span>
         </p>
         <p>
           <span>⏳</span>

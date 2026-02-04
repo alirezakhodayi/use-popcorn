@@ -3,13 +3,21 @@ import Movie from "./Movie";
 
 interface IProps {
   movies: IMovie[];
+  onSelectMovie: (id: string) => void;
 }
 
-function MoviesList({ movies }: IProps) {
+function MoviesList({ movies, onSelectMovie }: IProps) {
+  if (!movies.length)
+    return (
+      <div className="start-search">
+        <p>Search for an amazing movie! 📽️🎞️</p>
+      </div>
+    );
+
   return (
-    <ul className="list">
-      {movies?.map((movie) => (
-        <Movie key={movie.imdbID} movie={movie} />
+    <ul className="list list-movies">
+      {movies.map((movie) => (
+        <Movie key={movie.imdbID} movie={movie} onSelectMovie={onSelectMovie} />
       ))}
     </ul>
   );

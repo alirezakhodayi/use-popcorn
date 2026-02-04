@@ -54,6 +54,7 @@ function StarRating({
     color,
     fontSize: `${size / 1.5}px`,
   };
+
   const isUsingMessages = useMessages && messages.length === maxRating;
 
   return (

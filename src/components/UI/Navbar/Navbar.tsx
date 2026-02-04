@@ -1,4 +1,4 @@
-import type { IMovie } from "../../types";
+import type { IMovie } from "../../../types";
 import Logo from "./Logo";
 import NumResults from "./NumResults";
 import Search from "./Search";

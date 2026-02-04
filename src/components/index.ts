@@ -1,17 +1,15 @@
-import { Navbar } from "./Navbar";
-import { Main } from "./Main";
 import { MoviesList } from "./MoviesList";
-import { Box } from "./Box";
 import { WatchedSummary } from "./WatchedSummary";
 import { WatchedMoviesList } from "./WatchedMoviesList";
-import { StarRating } from "./StarRating";
-import { Loader } from "./Loader";
-import { ErrorMessage } from "./ErrorMessage";
+import { MovieDetails } from "./MovieDetails";
+import { Navbar, Box, ErrorMessage, Loader, Main, StarRating } from "./UI";
+
 export {
   Navbar,
   Box,
   Main,
   MoviesList,
+  MovieDetails,
   WatchedMoviesList,
   WatchedSummary,
   StarRating,

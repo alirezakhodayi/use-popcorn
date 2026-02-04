@@ -1,4 +1,4 @@
 import type { IMovie } from "./movie-interface";
 import type { IWatchedMovie } from "./watched-movie-interface";
-
-export type { IMovie, IWatchedMovie };
+import type { IDetailedMovie } from "./detailed-movie-interface";
+export type { IMovie, IWatchedMovie, IDetailedMovie };
