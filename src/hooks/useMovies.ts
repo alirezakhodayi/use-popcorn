@@ -11,13 +11,21 @@ export function useMovies(query: string) {
   useEffect(
     function () {
       const controller = new AbortController();
+
       async function fetchMovies() {
+        if (query.trim().length < 3) {
+          setMovies([]);
+          setError("");
+          setIsLoading(false);
+          return;
+        }
+
         try {
           setIsLoading(true);
           setError("");
 
           const response = await fetch(
-            `https://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`,
+            `https://www.omdbapi.com/?apikey=${APIKEY}&s=${encodeURIComponent(query)}`,
             { signal: controller.signal },
           );
 
@@ -34,14 +42,8 @@ export function useMovies(query: string) {
           if (err instanceof Error && err.name !== "AbortError")
             setError(err.message);
         } finally {
-          setIsLoading(false);
+          if (!controller.signal.aborted) setIsLoading(false);
         }
-      }
-
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
       }
 
       fetchMovies();

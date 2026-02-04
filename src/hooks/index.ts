@@ -1,2 +1,5 @@
 import { useMovies } from "./useMovies";
-export { useMovies };
+import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
+
+export { useMovies, useLocalStorageState, useKey };

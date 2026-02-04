@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { StarRating } from "../UI";
-import { Loader } from "../UI";
+import { StarRating, Loader } from "../UI";
 import type { IDetailedMovie, IWatchedMovie } from "../../types";
+import { useKey } from "../../hooks";
 
 interface IProps {
   selectedId: string;
@@ -89,20 +89,7 @@ function MovieDetails({
     [title],
   );
 
-  useEffect(
-    function () {
-      function callback(e: KeyboardEvent) {
-        if (e.code === "Escape") onCloseMovie();
-      }
-
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie],
-  );
+  useKey("Escape", onCloseMovie);
 
   return (
     <>

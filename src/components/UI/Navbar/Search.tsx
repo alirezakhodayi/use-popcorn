@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useKey } from "../../../hooks";
 
 interface IProps {
   query: string;
@@ -10,25 +11,11 @@ export default function Search({ query, setQuery }: IProps) {
   function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
   }
-
-  useEffect(
-    function () {
-      function callback(e: KeyboardEvent) {
-        if (document.activeElement === inputElementRef.current) return;
-        if (e.code === "Enter") {
-          inputElementRef.current?.focus();
-          setQuery("");
-        }
-      }
-      document.addEventListener("keydown", callback);
-      inputElementRef.current?.focus();
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [setQuery],
-  );
+  useKey("Enter", function () {
+    if (document.activeElement === inputElementRef.current) return;
+    inputElementRef.current?.focus();
+    setQuery("");
+  });
 
   return (
     <input
