@@ -18,7 +18,10 @@ const APIKEY = import.meta.env.VITE_API_KEY;
 
 function App() {
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const [watched, setWatched] = useState<IWatchedMovie[]>([]);
+  const [watched, setWatched] = useState<IWatchedMovie[]>(function () {
+    const storedValue = localStorage.getItem("watched");
+    return storedValue ? JSON.parse(storedValue) : [];
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -84,6 +87,13 @@ function App() {
       };
     },
     [query],
+  );
+
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched],
   );
 
   return (
